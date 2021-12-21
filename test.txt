@@ -1,0 +1,48 @@
+-------------------------------------------------------
+create phpmyadmin resource
+CLI request:
+
+curl -X POST http://<IP>:32111/pmas
+    -H "Content-Type: application/json"
+    -d '{"username": "user1"}'
+
+
+hasil:
+{
+  "info": {
+    "mysql_port": 13248,
+    "phpmyadmin_port": 13249,
+    "username": "user1"
+  },
+  "status": "OK"
+}
+
+----------------------------------------------------------
+
+get info by username
+
+CLI request:
+
+curl -X GET http://<IP>:32111/pma/user1
+
+hasil:
+{
+  "info": {
+    "mysql_port": 13248,
+    "phpmyadmin_port": 13249,
+    "username": "user1"
+  },
+  "status": "OK"
+}
+
+------------------------------------------------------------
+delete by username
+
+CLI request:
+
+curl -X DELETE http://<IP>:32111/pma/user1
+
+hasil:
+{
+  "status": "OK"
+}
