@@ -1,0 +1,48 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "fp-awan"
+  namespace: "default"
+  labels:
+    app: "fp-awan"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "fp-awan"
+  template:
+    metadata:
+      labels:
+        app: "fp-awan"
+    spec:
+      containers:
+      - name: "mysql-service-1"
+        image: "hipzi/mysql-service:1.0"
+        volumeMounts:
+        - name: dockersock
+          mountPath: "/var/run/docker.sock"
+      volumes:
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock  
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "fp-awan-hpa-fjtc"
+  namespace: "default"
+  labels:
+    app: "fp-awan"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "fp-awan"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
