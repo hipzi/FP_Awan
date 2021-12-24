@@ -10,7 +10,7 @@ ADD container_model.py /apps
 ADD Service.py /apps
 RUN rm -rf /tmp/* /var/cache/apk/*
 WORKDIR /apps
-EXPOSE 32111
+EXPOSE 32111 11111-22222
 RUN cd /apps \ 
     && pip3 install -r requirements.txt
 ENTRYPOINT ["python3","Service.py"]

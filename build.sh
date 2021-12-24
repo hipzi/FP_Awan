@@ -1,1 +1,1 @@
-docker build -t mysql-service:1.0 .
+docker build -t mysql-service:2.0 .
